@@ -7,7 +7,7 @@ import AddPlanForm from "./AddPlanForm"
 import { useDispatch } from "react-redux"
 import { deletePlan } from "redux"
 
-const AddPlanItem = ({ item, index, PLAN_ID }) => {
+const AddPlanItem = ({ item, index, PLAN_ID, editable }) => {
   const d = useDispatch();
  const [isEditMode, setEditMode] = useState(false)
 
@@ -35,12 +35,12 @@ const AddPlanItem = ({ item, index, PLAN_ID }) => {
     <div className="addplanitem__nav">
      <span className="addplanitem__index">Day #{index}</span>
      <div className="addplain__btns">
-      <button onClick={toggleEdit} title="Edit Plan Day">
+      {editable && <button onClick={toggleEdit} title="Edit Plan Day">
        <FaRegEdit />
-      </button>
-      <button onClick={deleteCurrent} title="Delete Plan Day">
+      </button>}
+      {editable && <button onClick={deleteCurrent} title="Delete Plan Day">
        <MdClose />
-      </button>
+      </button>}
      </div>
     </div>
     <span className="content">

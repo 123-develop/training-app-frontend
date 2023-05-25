@@ -4,6 +4,8 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { AuthSocialService } from '@/api/AuthService';
 import {generateOauthGoogleLink} from '@/utils';
+import {getUser} from "@/redux/index.js";
+import {userGoogleAuth} from "@/redux/reducers/auth-reducer.js";
 
 const AuthSocial = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const AuthSocial = () => {
     **/
     if(params.authBy === 'google') {
       if(code) {
-        // dispatch(getUser(data))
+        dispatch(userGoogleAuth(code))
         console.log('Setting JWT from Google...');
       } 
       else {
@@ -26,6 +28,7 @@ const AuthSocial = () => {
         .then(({data}) => {
           const link = generateOauthGoogleLink(data);
           window.location.replace(link);
+
         })
         .catch((_) =>  nav('/'))
       }

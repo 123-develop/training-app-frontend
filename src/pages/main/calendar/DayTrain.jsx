@@ -17,9 +17,9 @@ const DayTrain = ({ toggleEdit, evObj }) => {
     <span className="tc_dist">
      {evObj.distance} <span className="metric">km</span>
     </span>
-    <span className="tc_rtss">
-     {evObj?.rtss ? evObj?.rtss : "0"} <span className="metric">rTSS</span>
-    </span>
+    {/*<span className="tc_rtss">*/}
+    {/* {evObj?.rtss ? evObj?.rtss : "0"} <span className="metric">rTSS</span>*/}
+    {/*</span>*/}
    </div>
 
    <button onClick={toggleEdit} className="tc_edit" title="Edit training">

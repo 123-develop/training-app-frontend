@@ -2,6 +2,7 @@ import showMessage from "react-hot-toast";
 import {AuthService} from "api";
 import { setInit } from "redux";
 import {setAxiosSession} from "@/utils/index.js";
+import {AuthSocialService} from "@/api/AuthService.js";
 
 const LOGOUT = "@@training-app/dash-reducer/LOGOUT";
 const SET_USER_DATA = "@@training-app/dash-reducer/SET_USER_DATA";
@@ -56,6 +57,32 @@ export const userAuth = (authData) => {
      localStorage.removeItem("session");
     }
    });
+
+  showMessage.promise(fetch, {
+   loading: "Loading",
+   success: "Success Login.",
+   error: (err) =>  err?.response.data.message || 'Unknown error'
+  });
+ };
+};
+
+
+export const userGoogleAuth = (code) => {
+ return async (dispatch) => {
+  const fetch = AuthSocialService.getGoogleToken(code);
+  fetch
+      .then((authRes) => {
+       localStorage.setItem("session", `Bearer ${authRes.data}`);
+       setTimeout(() =>
+               dispatch(getUser(`Bearer ${authRes.data}`))
+           , 1000);
+      })
+      .catch((err) => {
+       if (err.response.data.message) {
+        localStorage.removeItem("session");
+       }
+       window.location.href = window.location.origin + window.location.pathname;
+      });
 
   showMessage.promise(fetch, {
    loading: "Loading",

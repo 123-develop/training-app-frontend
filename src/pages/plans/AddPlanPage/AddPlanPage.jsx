@@ -14,11 +14,12 @@ const AddPlanPage = ({ isInit }) => {
  const { PLAN_ID } = useParams()
  const nav = useNavigate();
  const [isAddDay, setAddDay] = useState(false)
- const { currentDays, currentObj, planName, planId } = useSelector(({ plans }) => ({
+ const { currentDays, currentObj, planName, planId, publicPlan } = useSelector(({ plans }) => ({
   planName: plans.currentPlanName,
   currentDays: plans.currentDays,
   currentObj: plans.currentObj,
   planId: plans.currentPlanId,
+  publicPlan: plans.currentPublicPlan,
  }))
 
 
@@ -52,7 +53,7 @@ const AddPlanPage = ({ isInit }) => {
    )
   return (
    <div className="plan_choosenext">
-    <button onClick={toggleAdd}>Add New</button>
+    {!publicPlan && <button onClick={toggleAdd}>Add New</button>}
    </div>
   )
  }
@@ -65,7 +66,7 @@ const AddPlanPage = ({ isInit }) => {
 
    <div className="addplanpage_content">
     {currentDays?.length ? 
-    currentDays.map((item, i) => <AddPlanItem key={uniqueId() + "_planitem"} index={i + 1} item={item} PLAN_ID={PLAN_ID} />) 
+    currentDays.map((item, i) => <AddPlanItem key={uniqueId() + "_planitem"} index={i + 1} item={item} PLAN_ID={PLAN_ID} editable={!publicPlan} />)
     : ""}
 
     {showAddBtnOrForm(isAddDay)}
@@ -75,7 +76,7 @@ const AddPlanPage = ({ isInit }) => {
     <NavLink to="/plans" className="addplab_btn btn">
      Show my Plans
     </NavLink>
-    <button onClick={onSavePlan} className="addplab_btn btn">Save Plan</button>
+    {!publicPlan && <button onClick={onSavePlan} className="addplab_btn btn">Save Plan</button>}
    </div>
    <MainLoader isVisible={!isInit} />
   </div>

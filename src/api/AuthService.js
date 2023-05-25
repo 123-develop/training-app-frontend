@@ -29,11 +29,7 @@ export class AuthSocialService {
   })
  }
 
- static async getJWTAuthByGoogleCode(code) {
-  return instance.get("/auth/google/get-token-from-code", {
-   params: {
-    code,
-   },
-  })
+ static async getGoogleToken(code) {
+  return instance.post("/auth/google/get-token-from-code", {code});
  }
 }

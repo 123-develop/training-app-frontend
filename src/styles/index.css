@@ -903,6 +903,7 @@ textarea {
   border-radius: none;
   background-color: transparent;
   border: 1.4px solid #d7dade;
+  color: #000;
 }
 
 .label,

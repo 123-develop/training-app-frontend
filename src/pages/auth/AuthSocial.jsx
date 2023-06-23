@@ -14,6 +14,7 @@ const AuthSocial = () => {
   const nav = useNavigate();
   const code = searchParams.get('code');
 
+  console.log(code)
   useEffect(() => {
     /**
     * Google OAuth
@@ -22,7 +23,7 @@ const AuthSocial = () => {
       if(code) {
         dispatch(userGoogleAuth(code))
         console.log('Setting JWT from Google...');
-      } 
+      }
       else {
         AuthSocialService.getClientIDGoogle()
         .then(({data}) => {
@@ -35,7 +36,7 @@ const AuthSocial = () => {
 
     } else nav('/');
   }, [params.authBy]);
-  
+
   return (
     <div className='oauth-page'>Redirecting... Please wait</div>
   )

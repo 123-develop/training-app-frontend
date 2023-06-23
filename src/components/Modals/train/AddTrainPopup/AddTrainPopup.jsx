@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 
 import AddTrainForm from "./AddTrainForm"
 import { createTrains } from "redux"
+import {getUser} from "../../../../redux/index.js";
 
 const AddTrainPopup = ({ isCreateMode, toggleCreate, selectedDate }) => {
  const d = useDispatch()

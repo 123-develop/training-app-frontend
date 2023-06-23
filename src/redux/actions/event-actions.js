@@ -5,6 +5,7 @@ import { setCreateMode } from "redux/actions/app-actions";
 import { setFeelsInit, setTrainsInit } from "../reducers/main-reducer";
 import FeelService from "../../api/FeelService";
 import showMessage from "react-hot-toast";
+import {getUser} from "../reducers/auth-reducer.js";
 
 
 
@@ -48,6 +49,7 @@ export function createTrains(plainTrainObject) {
         })
 
         dispatch(setCreateMode(false));
+        dispatch(getUser(localStorage.getItem("session")))
       })
       .catch((error) => {
         showMessage.error(error?.response?.data?.message || error.message || 'Unknown error')
